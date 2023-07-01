@@ -98,7 +98,9 @@ impl Game {
         }
     }
 
-    pub fn update(&self) {}
+    pub fn update(&mut self) {}
 
-    pub fn start(&self) {}
+    pub fn start(&mut self) {
+        self.mode = Mode::Playing;
+    }
 }

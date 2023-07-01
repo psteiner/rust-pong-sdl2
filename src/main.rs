@@ -2,18 +2,24 @@ mod game;
 mod ui;
 
 mod prelude {
-    pub use crate::game::Game;
-    pub use crate::ui::*;
     pub use sdl2::event::Event;
     pub use sdl2::keyboard::Keycode;
     pub use sdl2::pixels::Color;
-    pub use std::time::Duration;
+    pub use sdl2::rect::Point;
+    pub use sdl2::rect::Rect;
     pub use sdl2::render::Canvas;
     pub use sdl2::video::Window;
+    
+    pub use std::time::Duration;
+
+    pub use crate::game::Game;
+    pub use crate::ui::*;
 
     pub const WINDOW_WIDTH: u32 = 800;
     pub const WINDOW_HEIGHT: u32 = 600;
     pub const SCREEN_MARGIN: i32 = 10;
+    pub const COURT_HEIGHT: u32 = WINDOW_HEIGHT - SCREEN_MARGIN as u32 * 2;
+    pub const COURT_WIDTH: u32 = WINDOW_WIDTH - SCREEN_MARGIN as u32 * 2;
     pub const RACKET_HEIGHT: u32 = WINDOW_HEIGHT / 8;
     pub const RACKET_WIDTH: u32 = 10;
     pub const RACKET_CENTRE: i32 =
@@ -24,7 +30,6 @@ mod prelude {
 use prelude::*;
 
 pub fn main() -> Result<(), String> {
-
     let sdl_context = sdl2::init()?;
     let video_subsystem = sdl_context.video()?;
 
@@ -36,7 +41,7 @@ pub fn main() -> Result<(), String> {
         .map_err(|e| e.to_string())?;
 
     let mut canvas = window.into_canvas().build().map_err(|e| e.to_string())?;
-    canvas.set_draw_color(Color::BLACK);
+    canvas.set_draw_color(Color::BLUE);
     canvas.clear();
     canvas.present();
     let mut event_pump = sdl_context.event_pump()?;
