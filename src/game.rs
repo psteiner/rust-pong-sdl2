@@ -23,8 +23,6 @@ https://youtu.be/ut6Rh-rmGAo?t=1204
         - higher-pitched 'bip' when paddle intercepts ball
         - longer, higher-pitched 'buuuzzz' when ball scores
 
-        - volley speeds up the longer the ball is in play
-        - three speed levels
 */
 enum Mode {
     Idle,
@@ -53,6 +51,12 @@ impl Paddle {
     pub fn move_down(&self) {}
 }
 
+/*  Ball
+    - new ball starts from random y position at random angle
+    - winner serves
+    - volley speeds up the longer the ball is in play
+    - three speed levels
+ */
 pub struct Ball {
     pub x: i32,
     pub y: i32,
@@ -91,7 +95,7 @@ impl Game {
                 RACKET_WIDTH,
             ),
             ball: Ball::new(
-                WINDOW_WIDTH as i32 / 2,
+                WINDOW_WIDTH as i32 / 2 - BALL_SIZE as i32 / 2,
                 WINDOW_HEIGHT as i32 / 2,
                 BALL_SIZE,
             ),

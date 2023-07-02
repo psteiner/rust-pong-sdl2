@@ -18,13 +18,11 @@ mod prelude {
     pub const WINDOW_WIDTH: u32 = 800;
     pub const WINDOW_HEIGHT: u32 = 600;
     pub const SCREEN_MARGIN: i32 = 10;
-    pub const COURT_HEIGHT: u32 = WINDOW_HEIGHT - SCREEN_MARGIN as u32 * 2;
-    pub const COURT_WIDTH: u32 = WINDOW_WIDTH - SCREEN_MARGIN as u32 * 2;
     pub const RACKET_HEIGHT: u32 = WINDOW_HEIGHT / 8;
     pub const RACKET_WIDTH: u32 = 10;
     pub const RACKET_CENTRE: i32 =
         WINDOW_HEIGHT as i32 / 2 - RACKET_HEIGHT as i32 / 2;
-    pub const BALL_SIZE: u32 = 10;
+    pub const BALL_SIZE: u32 = 16;
 }
 
 use prelude::*;
