@@ -9,7 +9,7 @@ mod prelude {
     pub use sdl2::rect::Rect;
     pub use sdl2::render::Canvas;
     pub use sdl2::video::Window;
-    
+
     pub use std::time::Duration;
 
     pub use crate::game::Game;
@@ -49,7 +49,11 @@ pub fn main() -> Result<(), String> {
     'running: loop {
         for event in event_pump.poll_iter() {
             match event {
-                Event::Quit { .. } => break 'running,
+                Event::Quit { .. }
+                | Event::KeyDown {
+                    keycode: Some(Keycode::Escape),
+                    ..
+                } => break 'running,
                 Event::KeyDown {
                     keycode: Some(Keycode::Space),
                     ..
