@@ -13,7 +13,8 @@ https://youtu.be/ut6Rh-rmGAo?t=1204
         - game starts when a coin is inserted
         - After the coin is inserted, the screen 'flips' as the game initializes
         - the scores are reset to '0'
-        - after two or three seconds, the ball is served from the centre line
+        - after two or three seconds, the ball is served from a random location
+            and angle on the net
 
     Over:
         - first player to 11
@@ -24,17 +25,13 @@ https://youtu.be/ut6Rh-rmGAo?t=1204
         - longer, higher-pitched 'buuuzzz' when ball scores
 
 */
-enum Mode {
-    Idle,
-    Playing,
-    Over,
-}
 
 pub struct Paddle {
     pub x: i32,
     pub y: i32,
     pub height: u32,
     pub width: u32,
+    pub score: u32,
 }
 
 impl Paddle {
@@ -44,6 +41,7 @@ impl Paddle {
             y,
             height,
             width,
+            score: 0,
         }
     }
 
@@ -52,11 +50,11 @@ impl Paddle {
 }
 
 /*  Ball
-    - new ball starts from random y position at random angle
-    - winner serves
-    - volley speeds up the longer the ball is in play
-    - three speed levels
- */
+   - new ball starts from random y position at random angle
+   - winner serves
+   - volley speeds up the longer the ball is in play
+   - three speed levels
+*/
 pub struct Ball {
     pub x: i32,
     pub y: i32,
@@ -64,47 +62,99 @@ pub struct Ball {
 }
 
 impl Ball {
-    pub fn new(x: i32, y: i32, size: u32) -> Ball {
-        Ball { x, y, size }
+    pub fn new() -> Ball {
+        Ball {
+            x: WINDOW_WIDTH as i32 / 2 - BALL_SIZE as i32 / 2,
+            y: WINDOW_HEIGHT as i32 / 2,
+            size: BALL_SIZE,
+        }
     }
 
     pub fn update() {}
 }
 
-pub struct Game {
-    mode: Mode,
+pub struct Game<State> {
+    state: State,
+}
+
+impl Game<Idle> {
+    pub fn new() -> Self {
+        Game { state: Idle::new() }
+    }
+    pub fn start(&self){}
+    pub fn update(&self) {}
+}
+
+pub struct Idle {
+    pub ball: Ball,
+}
+
+impl Idle {
+    pub fn new() -> Self {
+        Idle { ball: Ball::new() }
+    }
+}
+
+
+impl From<Game<Over>> for Game<Idle> {
+    fn from(game: Game<Over>) -> Game<Idle> {
+        Game {
+            state: Idle {
+                ball: Ball::new()
+            }
+        }
+    }
+}
+
+pub struct Playing {
     pub player: Paddle,
     pub opponent: Paddle,
     pub ball: Ball,
 }
 
-impl Game {
-    pub fn new() -> Game {
+impl Game<Playing> {
+    pub fn update(&self) {}
+}
+
+impl From<Game<Idle>> for Game<Playing> {
+    fn from(game: Game<Idle>) -> Game<Playing> {
         Game {
-            mode: Mode::Idle,
-            player: Paddle::new(
-                SCREEN_MARGIN,
-                RACKET_CENTRE,
-                RACKET_HEIGHT,
-                RACKET_WIDTH,
-            ),
-            opponent: Paddle::new(
-                WINDOW_WIDTH as i32 - SCREEN_MARGIN - RACKET_WIDTH as i32,
-                RACKET_CENTRE,
-                RACKET_HEIGHT,
-                RACKET_WIDTH,
-            ),
-            ball: Ball::new(
-                WINDOW_WIDTH as i32 / 2 - BALL_SIZE as i32 / 2,
-                WINDOW_HEIGHT as i32 / 2,
-                BALL_SIZE,
-            ),
+            state: Playing {
+                player: Paddle::new(
+                    SCREEN_MARGIN,
+                    RACKET_CENTRE,
+                    RACKET_HEIGHT,
+                    RACKET_WIDTH,
+                ),
+                opponent: Paddle::new(
+                    WINDOW_WIDTH as i32 - SCREEN_MARGIN - RACKET_WIDTH as i32,
+                    RACKET_CENTRE,
+                    RACKET_HEIGHT,
+                    RACKET_WIDTH,
+                ),
+                ball: Ball::new(),
+            },
         }
     }
+}
 
-    pub fn update(&mut self) {}
+pub struct Over {
+    pub player: Paddle,
+    pub opponent: Paddle,
+}
 
-    pub fn start(&mut self) {
-        self.mode = Mode::Playing;
+impl Game<Over> {
+    pub fn update(&self) {}
+}
+
+
+impl From<Game<Playing>> for Game<Over> {
+    fn from(game: Game<Playing>) -> Game<Over> {
+        Game {
+            state: Over {
+                player: game.state.player,
+                opponent: game.state.opponent
+            }
+        }
     }
 }

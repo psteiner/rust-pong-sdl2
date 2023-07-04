@@ -1,6 +1,6 @@
 use crate::prelude::*;
 
-pub fn draw_game(canvas: &mut Canvas<Window>, game: &Game) {
+pub fn draw_game<T>(canvas: &mut Canvas<Window>, game: &Game<T>) {
     canvas.set_draw_color(Color::BLACK);
     canvas.clear();
     draw_net(canvas);
@@ -32,12 +32,11 @@ fn draw_net(canvas: &mut Canvas<Window>) {
     }
 }
 
-fn draw_score(canvas: &mut Canvas<Window>, game: &Game) {
+fn draw_score<T>(canvas: &mut Canvas<Window>, game: &Game<T>) {
     canvas.set_draw_color(Color::WHITE);
-
 }
 
-fn draw_ball(canvas: &mut Canvas<Window>, game: &Game) {
+fn draw_ball(canvas: &mut Canvas<Window>, game: &Game<Idle>) {
     canvas.set_draw_color(Color::WHITE);
     canvas
         .fill_rect(Rect::new(
@@ -49,5 +48,5 @@ fn draw_ball(canvas: &mut Canvas<Window>, game: &Game) {
         .expect("Failed to draw ball");
 }
 
-fn draw_player_paddle(canvas: &mut Canvas<Window>, game: &Game) {}
-fn draw_opponent_paddle(canvas: &mut Canvas<Window>, game: &Game) {}
+fn draw_player_paddle<T>(canvas: &mut Canvas<Window>, game: &T) {}
+fn draw_opponent_paddle<T>(canvas: &mut Canvas<Window>, game: &T) {}

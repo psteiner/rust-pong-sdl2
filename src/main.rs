@@ -9,10 +9,10 @@ mod prelude {
     pub use sdl2::rect::Rect;
     pub use sdl2::render::Canvas;
     pub use sdl2::video::Window;
-    
+
     pub use std::time::Duration;
 
-    pub use crate::game::Game;
+    pub use crate::game::*;
     pub use crate::ui::*;
 
     pub const WINDOW_WIDTH: u32 = 800;
@@ -49,7 +49,11 @@ pub fn main() -> Result<(), String> {
     'running: loop {
         for event in event_pump.poll_iter() {
             match event {
-                Event::Quit { .. } => break 'running,
+                Event::Quit { .. }
+                | Event::KeyDown {
+                    keycode: Some(Keycode::Escape),
+                    ..
+                } => break 'running,
                 Event::KeyDown {
                     keycode: Some(Keycode::Space),
                     ..
@@ -59,11 +63,15 @@ pub fn main() -> Result<(), String> {
                 Event::KeyDown {
                     keycode: Some(Keycode::Up),
                     ..
-                } => game.player.move_up(),
+                } => {
+                    //game.move_up(),
+                }
                 Event::KeyDown {
                     keycode: Some(Keycode::Down),
                     ..
-                } => game.player.move_down(),
+                } => {
+                    //game.move_down(),
+                }
                 _ => {}
             }
         }
