@@ -24,7 +24,7 @@ https://youtu.be/ut6Rh-rmGAo?t=1204
         - longer, higher-pitched 'buuuzzz' when ball scores
 
 */
-enum Mode {
+enum State {
     Idle,
     Playing,
     Over,
@@ -35,6 +35,7 @@ pub struct Paddle {
     pub y: i32,
     pub height: u32,
     pub width: u32,
+    pub score: u32
 }
 
 impl Paddle {
@@ -44,6 +45,7 @@ impl Paddle {
             y,
             height,
             width,
+            score: 0
         }
     }
 
@@ -72,7 +74,7 @@ impl Ball {
 }
 
 pub struct Game {
-    mode: Mode,
+    state: State,
     pub player: Paddle,
     pub opponent: Paddle,
     pub ball: Ball,
@@ -81,7 +83,7 @@ pub struct Game {
 impl Game {
     pub fn new() -> Game {
         Game {
-            mode: Mode::Idle,
+            state: State::Idle,
             player: Paddle::new(
                 SCREEN_MARGIN,
                 RACKET_CENTRE,
@@ -105,6 +107,6 @@ impl Game {
     pub fn update(&mut self) {}
 
     pub fn start(&mut self) {
-        self.mode = Mode::Playing;
+        self.state = State::Playing;
     }
 }
