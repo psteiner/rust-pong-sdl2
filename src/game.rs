@@ -24,6 +24,7 @@ https://youtu.be/ut6Rh-rmGAo?t=1204
         - longer, higher-pitched 'buuuzzz' when ball scores
 
 */
+#[derive(Debug, PartialEq)]
 enum State {
     Idle,
     Playing,
@@ -53,6 +54,7 @@ impl Paddle {
     pub fn move_down(&self) {}
 }
 
+
 /*  Ball
     - new ball starts from random y position at random angle
     - winner serves
@@ -70,7 +72,7 @@ impl Ball {
         Ball { x, y, size }
     }
 
-    pub fn update() {}
+    pub fn update(&self) {}
 }
 
 pub struct Game {
@@ -81,8 +83,8 @@ pub struct Game {
 }
 
 impl Game {
-    pub fn new() -> Game {
-        Game {
+    pub fn new() -> Self {
+        Self {
             state: State::Idle,
             player: Paddle::new(
                 SCREEN_MARGIN,
@@ -104,9 +106,14 @@ impl Game {
         }
     }
 
-    pub fn update(&mut self) {}
+    pub fn update(&mut self) {
+        self.player.update();
+        self.opponent.update();
+        self.ball.update();
+    }
 
     pub fn start(&mut self) {
         self.state = State::Playing;
+        println!("State: {:?}", self.state);
     }
 }

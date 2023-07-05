@@ -56,6 +56,7 @@ pub fn main() -> Result<(), String> {
                 } => break 'running,
                 Event::KeyDown {
                     keycode: Some(Keycode::Space),
+                    repeat: false,
                     ..
                 } => {
                     game.start();
