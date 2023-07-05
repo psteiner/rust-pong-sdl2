@@ -21,7 +21,7 @@ https://youtu.be/ut6Rh-rmGAo?t=1204
     Sounds:
         - low-pitched 'boop' when ball rebounds from top or bottom edge
         - higher-pitched 'bip' when paddle intercepts ball
-        - longer, higher-pitched 'buuuzzz' when ball scores
+        - longer, higher-pitched 'buzz' when ball scores
 
 */
 #[derive(Debug, PartialEq)]
@@ -52,6 +52,7 @@ impl Paddle {
 
     pub fn move_up(&self) {}
     pub fn move_down(&self) {}
+    pub fn update(&self) {}
 }
 
 
@@ -72,7 +73,9 @@ impl Ball {
         Ball { x, y, size }
     }
 
-    pub fn update(&self) {}
+    pub fn update(&self) {
+        
+    }
 }
 
 pub struct Game {
@@ -107,8 +110,10 @@ impl Game {
     }
 
     pub fn update(&mut self) {
-        self.player.update();
-        self.opponent.update();
+        if self.state == State::Playing {
+            self.player.update();
+            self.opponent.update();
+        }
         self.ball.update();
     }
 
