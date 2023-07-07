@@ -36,7 +36,7 @@ fn draw_score<T>(canvas: &mut Canvas<Window>, game: &Game<T>) {
     canvas.set_draw_color(Color::WHITE);
 }
 
-fn draw_ball(canvas: &mut Canvas<Window>, game: &Game<Idle>) {
+fn draw_ball<T>(canvas: &mut Canvas<Window>, game: &Game<T>) {
     canvas.set_draw_color(Color::WHITE);
     canvas
         .fill_rect(Rect::new(
@@ -48,5 +48,5 @@ fn draw_ball(canvas: &mut Canvas<Window>, game: &Game<Idle>) {
         .expect("Failed to draw ball");
 }
 
-fn draw_player_paddle<T>(canvas: &mut Canvas<Window>, game: &T) {}
-fn draw_opponent_paddle<T>(canvas: &mut Canvas<Window>, game: &T) {}
+fn draw_player_paddle<T>(canvas: &mut Canvas<Window>, game: &Game<T>) {}
+fn draw_opponent_paddle<T>(canvas: &mut Canvas<Window>, game: &Game<T>) {}

@@ -22,7 +22,7 @@ https://youtu.be/ut6Rh-rmGAo?t=1204
     Sounds:
         - low-pitched 'boop' when ball rebounds from top or bottom edge
         - higher-pitched 'bip' when paddle intercepts ball
-        - longer, higher-pitched 'buuuzzz' when ball scores
+        - longer, higher-pitched 'buzz' when ball scores
 
 */
 
@@ -31,7 +31,6 @@ pub struct Paddle {
     pub y: i32,
     pub height: u32,
     pub width: u32,
-    pub score: u32,
 }
 
 impl Paddle {
@@ -41,7 +40,6 @@ impl Paddle {
             y,
             height,
             width,
-            score: 0,
         }
     }
 

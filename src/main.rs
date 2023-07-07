@@ -64,13 +64,13 @@ pub fn main() -> Result<(), String> {
                     keycode: Some(Keycode::Up),
                     ..
                 } => {
-                    //game.move_up(),
+                    // game.player.move_up();
                 }
                 Event::KeyDown {
                     keycode: Some(Keycode::Down),
                     ..
                 } => {
-                    //game.move_down(),
+                    // game.player.move_down();
                 }
                 _ => {}
             }
@@ -82,3 +82,4 @@ pub fn main() -> Result<(), String> {
     }
     Ok(())
 }
+
