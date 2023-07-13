@@ -13,7 +13,8 @@ https://youtu.be/ut6Rh-rmGAo?t=1204
         - game starts when a coin is inserted
         - After the coin is inserted, the screen 'flips' as the game initializes
         - the scores are reset to '0'
-        - after two or three seconds, the ball is served from the centre line
+        - after two or three seconds, the ball is served from a random location
+            and angle on the net
 
     Over:
         - first player to 11
@@ -54,11 +55,7 @@ impl Game {
                 RACKET_HEIGHT,
                 RACKET_WIDTH,
             ),
-            ball: Ball::new(
-                WINDOW_WIDTH as i32 / 2 - BALL_SIZE as i32 / 2,
-                WINDOW_HEIGHT as i32 / 2,
-                BALL_SIZE,
-            ),
+            ball: Ball::new(),
         }
     }
 
