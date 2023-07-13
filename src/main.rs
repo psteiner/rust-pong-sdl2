@@ -1,5 +1,7 @@
 mod game;
 mod ui;
+mod ball;
+mod paddle;
 
 mod prelude {
     pub use sdl2::event::Event;
@@ -14,6 +16,8 @@ mod prelude {
 
     pub use crate::game::*;
     pub use crate::ui::*;
+    pub use crate::ball::*;
+    pub use crate::paddle::*;
 
     pub const WINDOW_WIDTH: u32 = 800;
     pub const WINDOW_HEIGHT: u32 = 600;
@@ -58,7 +62,7 @@ pub fn main() -> Result<(), String> {
                     keycode: Some(Keycode::Space),
                     ..
                 } => {
-                    game.start();
+                    game = game.start();
                 }
                 Event::KeyDown {
                     keycode: Some(Keycode::Up),
