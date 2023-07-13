@@ -31,60 +31,6 @@ enum State {
     Over,
 }
 
-pub struct Paddle {
-    pub x: i32,
-    pub y: i32,
-    pub height: u32,
-    pub width: u32,
-    pub score: u32
-}
-
-impl Paddle {
-    pub fn new(x: i32, y: i32, height: u32, width: u32) -> Paddle {
-        Paddle {
-            x,
-            y,
-            height,
-            width,
-            score: 0
-        }
-    }
-
-    pub fn move_up(&self) {}
-    pub fn move_down(&self) {}
-    pub fn update(&self) {}
-}
-
-
-/*  Ball
-    - new ball starts from random y position at random angle
-    - winner serves
-    - volley speeds up the longer the ball is in play
-    - three speed levels
- */
-pub struct Ball {
-    pub x: i32,
-    pub y: i32,
-    pub dx: i32,
-    pub dy: i32,
-    pub size: u32,
-}
-
-impl Ball {
-    pub fn new(x: i32, y: i32, size: u32) -> Ball {
-        Ball { x, y, dx: 3, dy: 3, size }
-    }
-
-    pub fn update(&mut self) {
-        self.x += self.dx;
-        self.y += self.dy;
-
-        if self.x < 0 {
-            
-        }
-    }
-}
-
 pub struct Game {
     state: State,
     pub player: Paddle,

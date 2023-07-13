@@ -1,5 +1,7 @@
 mod game;
 mod ui;
+mod ball;
+mod paddle;
 
 mod prelude {
     pub use sdl2::event::Event;
@@ -12,7 +14,9 @@ mod prelude {
 
     pub use std::time::Duration;
 
-    pub use crate::game::Game;
+    pub use crate::game::*;
+    pub use crate::ball::*;
+    pub use crate::paddle::*;
     pub use crate::ui::*;
 
     pub const WINDOW_WIDTH: u32 = 800;
